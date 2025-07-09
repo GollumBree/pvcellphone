@@ -1,0 +1,13 @@
+{
+  "itemGroup.pvcellphone": "Example Mod Tab",
+  "block.pvcellphone.example_block": "Example Block",
+  "item.pvcellphone.example_item": "Example Item",
+
+  "pvcellphone.configuration.title": "Cellphone Configs",
+  "pvcellphone.configuration.section.pvcellphone.common.toml": "Cellphone Configs",
+  "pvcellphone.configuration.section.pvcellphone.common.toml.title": "Cellphone Configs",
+  "pvcellphone.configuration.items": "Item List",
+  "pvcellphone.configuration.logDirtBlock": "Log Dirt Block",
+  "pvcellphone.configuration.magicNumberIntroduction": "Magic Number Text",
+  "pvcellphone.configuration.magicNumber": "Magic Number"
+}
