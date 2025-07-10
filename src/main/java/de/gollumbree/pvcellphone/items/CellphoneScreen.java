@@ -2,12 +2,9 @@ package de.gollumbree.pvcellphone.items;
 
 import javax.annotation.Nonnull;
 
-import org.checkerframework.checker.units.qual.t;
-
 import com.mojang.blaze3d.platform.Window;
 
 import de.gollumbree.pvcellphone.Main;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
@@ -110,6 +107,21 @@ public class CellphoneScreen extends Screen {
                 // textField.setSuggestion();
             });
             addRenderableWidget(textField);
+            ImageButton callButton = new ImageButton(centerX - buttonOffsetX -
+                    ButtonSize
+                            / 2,
+                    centerY + buttonOffsetY, ButtonSize, ButtonSize,
+                    new WidgetSprites(BUTTONACCEPT_LOCATION_UNFOCUSED,
+                            BUTTONACCEPT_LOCATION_FOCUSED),
+                    btn -> {
+                        // Call the player with the name in the text field
+                        String playerName = textField.getValue();
+                        System.out.println("Calling player: " + playerName);
+                        // send packet to server or handle the call logic here
+                        // Here you would implement the logic to call the player
+                        // For now, just print to console
+                    }, Component
+                            .empty());
         }
     }
 

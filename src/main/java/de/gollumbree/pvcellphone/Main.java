@@ -57,6 +57,7 @@ public class Main {
         // file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         // NeoForge.EVENT_BUS.register(Config.class);
+        Ringtones.SOUND_EVENTS.register(modEventBus);
 
     }
 

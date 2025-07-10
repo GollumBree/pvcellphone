@@ -1,0 +1,52 @@
+{
+    "ringtone0": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone0"
+        ]
+    },
+    "ringtone1": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone1"
+        ]
+    },
+    "ringtone2": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone2"
+        ]
+    },
+    "ringtone3": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone3"
+        ]
+    },
+    "ringtone4": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone4"
+        ]
+    },
+    "ringtone5": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone5"
+        ]
+    },
+    "ringtone6": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone6"
+        ]
+    },
+    "ringtone7": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone7"
+        ]
+    },
+    "ringtone8": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone8"
+        ]
+    },
+    "ringtone9": {
+        "sounds": [
+            "pvcellphone:ringtones/ringtone9"
+        ]
+    }
+}
