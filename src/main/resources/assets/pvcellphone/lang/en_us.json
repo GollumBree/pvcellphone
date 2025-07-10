@@ -1,13 +1,10 @@
 {
-  "itemGroup.pvcellphone": "Example Mod Tab",
-  "block.pvcellphone.example_block": "Example Block",
-  "item.pvcellphone.example_item": "Example Item",
-
+  "item.pvcellphone.cellphone": "Cellphone",
+  "item.pvcellphone.cellphone.description": "A device to communicate with others",
+  "screen.pvcellphone.cellphone.title": "Cellphone",
+  "screen.pvcellphone.cellphone.accept": "Accept",
+  "screen.pvcellphone.cellphone.decline": "Decline",
   "pvcellphone.configuration.title": "Cellphone Configs",
   "pvcellphone.configuration.section.pvcellphone.common.toml": "Cellphone Configs",
   "pvcellphone.configuration.section.pvcellphone.common.toml.title": "Cellphone Configs",
-  "pvcellphone.configuration.items": "Item List",
-  "pvcellphone.configuration.logDirtBlock": "Log Dirt Block",
-  "pvcellphone.configuration.magicNumberIntroduction": "Magic Number Text",
-  "pvcellphone.configuration.magicNumber": "Magic Number"
 }
