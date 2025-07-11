@@ -1,22 +1,19 @@
 package de.gollumbree.pvcellphone;
 
 import de.gollumbree.pvcellphone.items.CellphoneItem;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.MinecraftServer;
+import de.gollumbree.pvcellphone.network.ClientPayloadHandler;
+import de.gollumbree.pvcellphone.network.NameCallData;
+import de.gollumbree.pvcellphone.network.ServerPayloadHandler;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.OnDatapackSyncEvent;
-import net.neoforged.neoforge.event.server.ServerStartedEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -59,6 +56,7 @@ public class Main {
         // NeoForge.EVENT_BUS.register(Config.class);
         Ringtones.SOUND_EVENTS.register(modEventBus);
 
+        modEventBus.addListener(Main::registerPayloads);
     }
 
     // Add the example block item to the building blocks tab
@@ -66,5 +64,15 @@ public class Main {
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(CELLPHONE_ITEM);
         }
+    }
+
+    public static void registerPayloads(RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar("1");
+        registrar.playBidirectional(
+                NameCallData.TYPE,
+                NameCallData.STREAM_CODEC,
+                new DirectionalPayloadHandler<>(
+                        ClientPayloadHandler::handleDataOnMain,
+                        ServerPayloadHandler::handleDataOnMain));
     }
 }

@@ -1,11 +1,8 @@
 package de.gollumbree.pvcellphone;
 
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -27,5 +24,4 @@ public class Client {
     // @SubscribeEvent
     // static void onClientSetup(FMLClientSetupEvent event) {
     // }
-
 }

@@ -11,6 +11,7 @@ public class Config {
 
         static final ModConfigSpec SPEC = BUILDER.build();
 
+        @SuppressWarnings("unused")
         private static boolean validateItemName(final Object obj) {
                 return obj instanceof String itemName
                                 && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
