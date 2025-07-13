@@ -27,15 +27,17 @@ public class CellphoneItem extends Item {
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player,
             @Nonnull InteractionHand hand) {
         if (level.isClientSide) {
-            Minecraft.getInstance()
-                    .setScreen(new CellphoneScreen(Component.translatable("screen.pvcellphone.cellphone.title"),
-                            incomingCall, this));
+            new CellphoneScreen(Component.translatable("screen.pvcellphone.cellphone.title"),
+                    incomingCall, this).open();
             // call(player);
         }
         return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
     }
 
     public void call(@Nonnull Player player, String callerPlayerName) {
+        if (incomingCall) {
+            return; // Already in a call, do not initiate another
+        }
         incomingCall = true;
         this.player = player;
         player.displayClientMessage(Component.literal("Call by: " + callerPlayerName), false);

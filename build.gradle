@@ -53,11 +53,14 @@ runs {
     client {
         // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        argument '--username'
+        argument 'Dev'
+        argument '-ea'
     }
 
     server {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        argument '--nogui'
+        argument '-ea'
     }
 
     // This run config launches GameTestServer and runs all registered gametests, then exits.
