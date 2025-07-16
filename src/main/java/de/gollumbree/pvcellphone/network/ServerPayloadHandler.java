@@ -1,14 +1,19 @@
 package de.gollumbree.pvcellphone.network;
 
+import java.util.UUID;
+
+// import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+// import net.neoforged.api.distmarker.OnlyIn;
+// import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ServerPayloadHandler {
-    public static void handleDataOnMain(final NameCallData data, final IPayloadContext context) {
+    public static void handleDataOnMain(final CallData data, final IPayloadContext context) {
         Player sender = context.player();
         MinecraftServer server = sender.getServer();
         if (server == null) {
@@ -22,6 +27,17 @@ public class ServerPayloadHandler {
             // Target player is not online, cannot send packet
             return;
         }
-        PacketDistributor.sendToPlayer(targetPlayer, new NameCallData(sender.getName().getString()));
+
+        String groupName = data.groupName();
+        if (groupName.isEmpty()) {
+            // If no group name is provided, create a new group with a random UUID
+            groupName = UUID.randomUUID().toString().replaceAll("-", "");
+            // CommandSourceStack senderCommandSource = sender.createCommandSourceStack();
+            // TODO: create the group in a way that gives the id
+            // server.getCommands().performPrefixedCommand(senderCommandSource,
+            // "groups create name:" + groupName);
+        }
+
+        PacketDistributor.sendToPlayer(targetPlayer, new CallData(sender.getName().getString(), groupName));
     }
 }

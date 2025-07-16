@@ -55,12 +55,12 @@ runs {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         argument '--username'
         argument 'Dev'
-        argument '-ea'
+        //argument '-ea'
     }
 
     server {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        argument '-ea'
+        //argument '-ea'
     }
 
     // This run config launches GameTestServer and runs all registered gametests, then exits.
@@ -105,6 +105,9 @@ dependencies {
     // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
     // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
     // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    implementation files("libs/pv-addon-groups-1.1.0.jar")
+    implementation files("libs/plasmovoice-neoforge-1.21-2.1.5.jar")
+
     compileOnly files("libs/smartphone-1.0.0.jar")
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
@@ -138,7 +141,7 @@ tasks.withType(ProcessResources).configureEach {
             mod_license            : mod_license,
             mod_version            : mod_version,
             mod_authors            : mod_authors,
-            mod_description        : mod_description
+            mod_description        : mod_description,
     ]
     inputs.properties replaceProperties
 

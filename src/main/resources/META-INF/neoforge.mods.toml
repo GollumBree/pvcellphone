@@ -84,6 +84,22 @@ versionRange = "[1.21.1]"
 ordering = "NONE"
 side = "BOTH"
 
+[[dependencies.pvcellphone]]
+modId = "pv_addon_groups"
+type = "required"
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange = "[1.1.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.pvcellphone]]
+modId = "smartphone"
+type = "optional"
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange = "[1.0.1,)"
+ordering = "NONE"
+side = "BOTH"
+
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 # Here's another dependency
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

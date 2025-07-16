@@ -2,7 +2,7 @@ package de.gollumbree.pvcellphone;
 
 import de.gollumbree.pvcellphone.items.CellphoneItem;
 import de.gollumbree.pvcellphone.network.ClientPayloadHandler;
-import de.gollumbree.pvcellphone.network.NameCallData;
+import de.gollumbree.pvcellphone.network.CallData;
 import de.gollumbree.pvcellphone.network.ServerPayloadHandler;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -69,8 +69,8 @@ public class Main {
     public static void registerPayloads(RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
         registrar.playBidirectional(
-                NameCallData.TYPE,
-                NameCallData.STREAM_CODEC,
+                CallData.TYPE,
+                CallData.STREAM_CODEC,
                 new DirectionalPayloadHandler<>(
                         ClientPayloadHandler::handleDataOnMain,
                         ServerPayloadHandler::handleDataOnMain));
