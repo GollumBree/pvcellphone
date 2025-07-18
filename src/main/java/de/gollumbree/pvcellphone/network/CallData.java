@@ -7,7 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
-public record CallData(String playerName, String groupName) implements CustomPacketPayload {
+public record CallData(String playerName, String groupId) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<CallData> TYPE = new CustomPacketPayload.Type<>(
             ResourceLocation.fromNamespaceAndPath(Main.MODID, "call_data"));
 
@@ -15,7 +15,7 @@ public record CallData(String playerName, String groupName) implements CustomPac
             ByteBufCodecs.STRING_UTF8,
             CallData::playerName,
             ByteBufCodecs.STRING_UTF8,
-            CallData::groupName,
+            CallData::groupId,
             CallData::new);
 
     @Override

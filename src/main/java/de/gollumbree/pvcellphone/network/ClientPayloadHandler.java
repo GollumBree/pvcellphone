@@ -25,14 +25,14 @@ public class ClientPayloadHandler {
                 .filter(item -> item instanceof CellphoneItem).map(item -> (CellphoneItem) item)
                 .findFirst().orElse(null);
         if (cellphone != null) {
-            cellphone.call(reciever, data.playerName(), data.groupName());
+            cellphone.call(reciever, data.playerName(), data.groupId());
             return;
         }
 
         if (ModList.get().isLoaded("smartphone")) {
             cellphone = smartphoneCompat.callSmartphone(inv);
             if (cellphone != null) {
-                cellphone.call(reciever, data.playerName(), data.groupName());
+                cellphone.call(reciever, data.playerName(), data.groupId());
                 return;
             }
         }
