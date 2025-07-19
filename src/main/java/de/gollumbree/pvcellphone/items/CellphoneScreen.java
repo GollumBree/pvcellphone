@@ -1,8 +1,5 @@
 package de.gollumbree.pvcellphone.items;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import javax.annotation.Nonnull;
 
 import org.lwjgl.glfw.GLFW;
@@ -20,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.util.Size2i;
 import net.neoforged.neoforge.network.PacketDistributor;
-import su.plo.voice.groups.GroupsManager;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -133,7 +129,7 @@ public class CellphoneScreen extends Screen {
         // System.out.println("Calling player: " + playerName);
         // send packet to server or handle the call logic here
         PacketDistributor
-                .sendToServer(new CallData(playerName, ""));// TODO: getCurrentGroupId().map(UUID::toString).orElse("")
+                .sendToServer(new CallData(playerName, ""));
         this.onClose();
     }
 
@@ -191,14 +187,15 @@ public class CellphoneScreen extends Screen {
         Minecraft.getInstance().setScreen(this);
     }
 
-    @SuppressWarnings("null")
-    private Optional<UUID> getCurrentGroupId() {
-        GroupsManager groupManager = Main.pvgroupsAddon().getGroupManager(); // TODO: cant be called on client side
-        if (groupManager == null || minecraft == null || minecraft.player == null) {
-            return Optional.empty();
-        }
-        return Optional.ofNullable(groupManager.getGroupByPlayer().get(minecraft.player.getUUID()))
-                .map(group -> group.getId());
-    }
+    // private Optional<UUID> getCurrentGroupId() {
+    // GroupsManager groupManager = Main.pvgroupsAddon().getGroupManager(); // cant
+    // be called on client side
+    // if (groupManager == null || minecraft == null || minecraft.player == null) {
+    // return Optional.empty();
+    // }
+    // return
+    // Optional.ofNullable(groupManager.getGroupByPlayer().get(minecraft.player.getUUID()))
+    // .map(group -> group.getId());
+    // }
 
 }

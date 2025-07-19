@@ -37,16 +37,15 @@ public class ServerCallHandler {
             // Target player is not online, cannot send packet
             return;
         }
-
-        String groupId = data.groupId();
-        UUID groupUuid = null;
-        if (groupId.isEmpty()) {
+        GroupsManager groupManager = Main.pvgroupsAddon().getGroupManager();
+        Group group = groupManager.getGroupByPlayer().get(sender.getUUID());
+        if (group == null) {
             // If no group name is provided, create a new group with a random UUID
-            groupUuid = UUID.randomUUID();
+            UUID groupUuid = UUID.randomUUID();
             String groupName = groupUuid.toString().replaceAll("-", "");
-            GroupsManager groupManager = Main.pvgroupsAddon().getGroupManager();
+
             ServerPlayerSet serverPlayerSet = groupManager.getSourceLine().getPlayerSetManager().createBroadcastSet();
-            Group group = new Group(serverPlayerSet, groupUuid, groupName, (String) null,
+            group = new Group(serverPlayerSet, groupUuid, groupName, (String) null,
                     false,
                     new HashSet<UUID>(Set.of(sender.getUUID())),
                     new ArrayList<McGameProfile>(List.of()),
@@ -62,10 +61,8 @@ public class ServerCallHandler {
 
             group.setOwner(voicePlayer.getInstance().getGameProfile());
             groupManager.join(voicePlayer, group);
-
-            groupId = groupUuid.toString();
         }
-
-        PacketDistributor.sendToPlayer(targetPlayer, new CallData(sender.getName().getString(), groupId));
+        PacketDistributor.sendToPlayer(targetPlayer,
+                new CallData(sender.getName().getString(), group.getId().toString()));
     }
 }
