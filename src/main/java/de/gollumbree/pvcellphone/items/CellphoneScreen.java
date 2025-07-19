@@ -1,5 +1,8 @@
 package de.gollumbree.pvcellphone.items;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 
 import org.lwjgl.glfw.GLFW;
@@ -17,6 +20,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.util.Size2i;
 import net.neoforged.neoforge.network.PacketDistributor;
+import su.plo.voice.groups.GroupsManager;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -126,27 +130,24 @@ public class CellphoneScreen extends Screen {
 
     private void Call(String playerName) {
         // Call the player with the name in the text field
-        System.out.println("Calling player: " + playerName);
+        // System.out.println("Calling player: " + playerName);
         // send packet to server or handle the call logic here
-        // TODO: get current group name
         PacketDistributor
-                .sendToServer(new CallData(playerName, ""));
-        assert minecraft != null;
+                .sendToServer(new CallData(playerName, ""));// TODO: getCurrentGroupId().map(UUID::toString).orElse("")
         this.onClose();
     }
 
     private void Accept() {
         cellphoneItem.stopCall();
         cellphoneItem.joinGroup();
-        System.out.println("Call accepted!");
-        // assert minecraft != null;
+        // System.out.println("Call accepted!");
         this.onClose();
         // Put players in Group
     }
 
     private void Decline() {
         cellphoneItem.stopCall();
-        System.out.println("Call declined!");
+        // System.out.println("Call declined!");
         // assert minecraft != null;
         this.onClose();
     }
@@ -189,4 +190,15 @@ public class CellphoneScreen extends Screen {
     public void open() {
         Minecraft.getInstance().setScreen(this);
     }
+
+    @SuppressWarnings("null")
+    private Optional<UUID> getCurrentGroupId() {
+        GroupsManager groupManager = Main.pvgroupsAddon().getGroupManager(); // TODO: cant be called on client side
+        if (groupManager == null || minecraft == null || minecraft.player == null) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(groupManager.getGroupByPlayer().get(minecraft.player.getUUID()))
+                .map(group -> group.getId());
+    }
+
 }

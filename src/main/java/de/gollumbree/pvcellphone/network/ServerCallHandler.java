@@ -1,5 +1,7 @@
 package de.gollumbree.pvcellphone.network;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -16,10 +18,11 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import su.plo.slib.api.entity.player.McGameProfile;
 import su.plo.voice.api.server.audio.line.ServerPlayerSet;
+import su.plo.voice.api.server.player.VoicePlayer;
 import su.plo.voice.groups.GroupsManager;
 import su.plo.voice.groups.group.Group;
 
-public class ServerPayloadHandler {
+public class ServerCallHandler {
     public static void handleDataOnMain(final CallData data, final IPayloadContext context) {
         Player sender = context.player();
         MinecraftServer server = sender.getServer();
@@ -30,7 +33,7 @@ public class ServerPayloadHandler {
         }
         ServerPlayer targetPlayer = server.getPlayerList().getPlayerByName(data.playerName());
         if (targetPlayer == null) {
-            context.player().displayClientMessage(Component.literal("Target Player not Online!"), false);
+            context.player().displayClientMessage(Component.literal("Target Player not Found!"), false);
             // Target player is not online, cannot send packet
             return;
         }
@@ -41,26 +44,28 @@ public class ServerPayloadHandler {
             // If no group name is provided, create a new group with a random UUID
             groupUuid = UUID.randomUUID();
             String groupName = groupUuid.toString().replaceAll("-", "");
-            GroupsManager groupManager = Main.groupsAddon().groupManager;
+            GroupsManager groupManager = Main.pvgroupsAddon().getGroupManager();
             ServerPlayerSet serverPlayerSet = groupManager.getSourceLine().getPlayerSetManager().createBroadcastSet();
             Group group = new Group(serverPlayerSet, groupUuid, groupName, (String) null,
                     false,
-                    Set.<UUID>of(sender.getUUID()),
-                    List.<McGameProfile>of(),
+                    new HashSet<UUID>(Set.of(sender.getUUID())),
+                    new ArrayList<McGameProfile>(List.of()),
                     (McGameProfile) null);
             groupManager.getGroups().put(groupUuid, group);
-            // TODO: join using the Addon
-            // server.getCommands().performPrefixedCommand(sender.createCommandSourceStack(),
-            // "groups join " + groupUuid.toString());
 
-            // groupManager.join(serverPlayerSet.getPlayers().stream()
-            // .filter(player ->
-            // player.getInstance().getUuid().equals(sender.getUUID())).findAny().orElseThrow(),
-            // group);
-        } else {
-            groupUuid = UUID.fromString(groupId);
+            VoicePlayer voicePlayer = Main.pVoiceServer().getPlayerManager().getPlayerById(sender.getUUID())
+                    .orElse(null);
+            if (voicePlayer == null) {
+                context.disconnect(Component.literal("Player not found in Voice Server!"));
+                return;
+            }
+
+            group.setOwner(voicePlayer.getInstance().getGameProfile());
+            groupManager.join(voicePlayer, group);
+
+            groupId = groupUuid.toString();
         }
 
-        PacketDistributor.sendToPlayer(targetPlayer, new CallData(sender.getName().getString(), groupUuid.toString()));
+        PacketDistributor.sendToPlayer(targetPlayer, new CallData(sender.getName().getString(), groupId));
     }
 }

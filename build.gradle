@@ -55,12 +55,12 @@ runs {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         argument '--username'
         argument 'Dev'
-        //argument '-ea'
+        //jvmArguments.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005")
     }
 
     server {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        //argument '-ea'
+        jvmArguments.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006")
     }
 
     // This run config launches GameTestServer and runs all registered gametests, then exits.

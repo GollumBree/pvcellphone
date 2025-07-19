@@ -1,9 +1,11 @@
 package de.gollumbree.pvcellphone;
 
 import de.gollumbree.pvcellphone.items.CellphoneItem;
-import de.gollumbree.pvcellphone.network.ClientPayloadHandler;
+import de.gollumbree.pvcellphone.network.ClientCallHandler;
+import de.gollumbree.pvcellphone.network.JoinData;
 import de.gollumbree.pvcellphone.network.CallData;
-import de.gollumbree.pvcellphone.network.ServerPayloadHandler;
+import de.gollumbree.pvcellphone.network.ServerCallHandler;
+import de.gollumbree.pvcellphone.network.ServerJoinHandler;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -32,6 +34,7 @@ public class Main {
             () -> new CellphoneItem(new Item.Properties().stacksTo(1)));
 
     private static GroupsAddon groupsAddon = null;
+    private static ModVoiceServer modVoiceServer = null;
 
     // The constructor for the mod class is the first code that is run when your mod
     // is loaded.
@@ -76,13 +79,24 @@ public class Main {
                 CallData.TYPE,
                 CallData.STREAM_CODEC,
                 new DirectionalPayloadHandler<>(
-                        ClientPayloadHandler::handleDataOnMain,
-                        ServerPayloadHandler::handleDataOnMain));
+                        ClientCallHandler::handleDataOnMain,
+                        ServerCallHandler::handleDataOnMain));
+        registrar.playToServer(
+                JoinData.TYPE,
+                JoinData.STREAM_CODEC,
+                ServerJoinHandler::handleDataOnMain);
     }
 
-    public static GroupsAddon groupsAddon() {
+    public static ModVoiceServer pVoiceServer() {
+        if (modVoiceServer == null) {
+            modVoiceServer = ModVoiceServer.INSTANCE;
+        }
+        return modVoiceServer;
+    }
+
+    public static GroupsAddon pvgroupsAddon() {
         if (groupsAddon == null) {
-            groupsAddon = (GroupsAddon) ModVoiceServer.INSTANCE.getAddonManager()
+            groupsAddon = (GroupsAddon) pVoiceServer().getAddonManager()
                     .getAddon("pv-addon-groups")
                     .orElseThrow().getInstance().orElseThrow();
         }

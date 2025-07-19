@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public class ClientPayloadHandler {
+public class ClientCallHandler {
     public static void handleDataOnMain(final CallData data, final IPayloadContext context) {
         Player reciever = context.player();
 
