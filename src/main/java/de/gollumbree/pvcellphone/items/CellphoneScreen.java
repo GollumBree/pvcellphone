@@ -103,7 +103,7 @@ public class CellphoneScreen extends Screen {
                     topPos + 3, // y
                     TextFieldSize.width, // width
                     TextFieldSize.height, // height
-                    Component.literal("Enter Playername"));
+                    Component.translatable("screen.pvcellphone.cellphone.textfield"));
             textField.setMaxLength(50);
             textField.setResponder(text -> {
                 textField.setSuggestion(playerAutoComplete(text));

@@ -51,9 +51,12 @@ public class CellphoneItem extends Item {
         incomingCall = true;
         this.groupUuid = UUID.fromString(groupId); // Set the group ID for the call
         this.player = player;
-        player.displayClientMessage(Component.literal("Call by: " + callerPlayerName), false);
-        player.displayClientMessage(Component.translatable("pvcellphone.cellphone.called.chat"), false);
-        player.displayClientMessage(Component.translatable("pvcellphone.cellphone.called.actionbar"), true);
+        player.displayClientMessage(
+                Component.translatable("pvcellphone.cellphone.called.chat", Component.literal(callerPlayerName)),
+                false);
+        player.displayClientMessage(
+                Component.translatable("pvcellphone.cellphone.called.actionbar", Component.literal(callerPlayerName)),
+                true);
         // System.out.println("Calling player: " + player + " with Sound: " +
         // Ringtones.RINGTONE0.get()
         // + " Volume: " + ringtoneVolume + " Pitch: " + ringtonePitch);
