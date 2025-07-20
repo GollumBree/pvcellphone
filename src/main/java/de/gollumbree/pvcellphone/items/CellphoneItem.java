@@ -17,6 +17,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class CellphoneItem extends Item {
@@ -30,6 +33,7 @@ public class CellphoneItem extends Item {
 
     public CellphoneItem(Properties props) {
         super(props); // Register the data component
+        NeoForge.EVENT_BUS.register(this); // Register this item for events
     }
 
     @Override
@@ -78,5 +82,11 @@ public class CellphoneItem extends Item {
     public void joinGroup() {
         PacketDistributor.sendToServer(
                 new JoinData(player.getUUID().toString(), groupUuid.toString()));
+    }
+
+    @SubscribeEvent
+    public void onJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        incomingCall = false; // Reset incoming call state when player joins
+        groupUuid = null; // Reset group ID
     }
 }
