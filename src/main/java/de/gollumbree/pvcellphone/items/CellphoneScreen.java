@@ -45,8 +45,8 @@ public class CellphoneScreen extends Screen {
     private int centerX;
     private int centerY;
 
-    private final int imageHeight = 512;
-    private final int imageWidth = 256;
+    private final int imageHeight = 200;
+    private final int imageWidth = 150;
 
     public CellphoneScreen(Component title, boolean incomingCall, CellphoneItem cellphone) {
         super(title);
@@ -65,7 +65,7 @@ public class CellphoneScreen extends Screen {
         centerY = height / 2;
 
         final int ButtonSize = 30;
-        final Size2i TextFieldSize = new Size2i(250, 20);
+        final Size2i TextFieldSize = new Size2i(120, 20);
         final int buttonOffsetX = 25;
         final int buttonOffsetY = 20;
 
@@ -99,8 +99,8 @@ public class CellphoneScreen extends Screen {
         } else {
             EditBox textField = new EditBox(
                     font,
-                    centerX - 125, // x
-                    topPos + 3, // y
+                    centerX - TextFieldSize.width / 2, // x
+                    topPos + (this.imageWidth - TextFieldSize.width) / 2, // y
                     TextFieldSize.width, // width
                     TextFieldSize.height, // height
                     Component.translatable("screen.pvcellphone.cellphone.textfield"));
@@ -165,7 +165,9 @@ public class CellphoneScreen extends Screen {
 
     @Override
     public void renderBackground(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.blit(BACKGROUND_LOCATION, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        renderTransparentBackground(graphics);
+        graphics.blit(BACKGROUND_LOCATION, leftPos, topPos, 0, 0, imageWidth, imageHeight,
+                imageWidth, imageHeight);
     }
 
     @SuppressWarnings("null")
