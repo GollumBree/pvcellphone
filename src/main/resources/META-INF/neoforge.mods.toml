@@ -27,7 +27,7 @@ modId = "pvcellphone" #mandatory
 version = "1.0.0" #mandatory
 
 # A display name for the mod
-displayName = "Cellphone (for Plasma Voice)" #mandatory
+displayName = "Cellphone (for Plasmo Voice)" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification https://docs.neoforged.net/docs/misc/updatechecker/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
@@ -45,11 +45,11 @@ displayName = "Cellphone (for Plasma Voice)" #mandatory
 authors = "GollumBree, JoJoJux" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
-description = '''Cellphone Mod that adds a cellphone to the game, which can be used to call other players. When Plasmo Voice is installed, it will also automatically create a group and join it, when the call gets accepted.'''
+description = '''Cellphone Mod that adds a cellphone to the game, which can be used to call other players. It will also automatically create a Plasmo Voice group and join it, when the call gets accepted.'''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
-[[mixins]]
-config = "pvcellphone.mixins.json"
+# [[mixins]]
+# config = "pvcellphone.mixins.json"
 
 # The [[accessTransformers]] block allows you to declare where your AT file is.
 # If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg

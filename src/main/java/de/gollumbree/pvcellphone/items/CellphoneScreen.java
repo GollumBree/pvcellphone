@@ -108,6 +108,11 @@ public class CellphoneScreen extends Screen {
             textField.setResponder(text -> {
                 textField.setSuggestion(playerAutoComplete(text));
             });
+            textField.setFocused(true);
+            textField.setFilter(text -> {
+                // Filter to allow only valid player names
+                return text.matches("[a-zA-Z0-9_]*") && text.length() <= 16;
+            });
             addRenderableWidget(textField);
             this.textField = textField;
             ImageButton callButton = new ImageButton(centerX - buttonOffsetX -

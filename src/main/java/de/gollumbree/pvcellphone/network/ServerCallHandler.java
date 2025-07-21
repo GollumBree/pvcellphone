@@ -33,7 +33,8 @@ public class ServerCallHandler {
         }
         ServerPlayer targetPlayer = server.getPlayerList().getPlayerByName(data.playerName());
         if (targetPlayer == null) {
-            context.player().displayClientMessage(Component.literal("Target Player not Found!"), false);
+            context.player().displayClientMessage(Component.literal("Player " + data.playerName() + " not Found!"),
+                    false);
             // Target player is not online, cannot send packet
             return;
         }
@@ -55,7 +56,7 @@ public class ServerCallHandler {
             VoicePlayer voicePlayer = Main.pVoiceServer().getPlayerManager().getPlayerById(sender.getUUID())
                     .orElse(null);
             if (voicePlayer == null) {
-                context.disconnect(Component.literal("Player not found in Voice Server!"));
+                System.err.println("Player " + sender.getName().getString() + " not found in Voice Server!");
                 return;
             }
 
