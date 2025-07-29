@@ -18,8 +18,6 @@ import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import su.plo.voice.groups.GroupsAddon;
-import su.plo.voice.server.ModVoiceServer;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Main.MODID)
@@ -32,9 +30,6 @@ public class Main {
     // Creates a new item with the id "pvcellphone:cellphone"
     public static final DeferredItem<CellphoneItem> CELLPHONE_ITEM = ITEMS.register("cellphone",
             () -> new CellphoneItem(new Item.Properties().stacksTo(1)));
-
-    private static GroupsAddon groupsAddon = null;
-    private static ModVoiceServer modVoiceServer = null;
 
     // The constructor for the mod class is the first code that is run when your mod
     // is loaded.
@@ -85,21 +80,5 @@ public class Main {
                 JoinData.TYPE,
                 JoinData.STREAM_CODEC,
                 ServerJoinHandler::handleDataOnMain);
-    }
-
-    public static ModVoiceServer pVoiceServer() {
-        if (modVoiceServer == null) {
-            modVoiceServer = ModVoiceServer.INSTANCE;
-        }
-        return modVoiceServer;
-    }
-
-    public static GroupsAddon pvgroupsAddon() {
-        if (groupsAddon == null) {
-            groupsAddon = (GroupsAddon) pVoiceServer().getAddonManager()
-                    .getAddon("pv-addon-groups")
-                    .orElseThrow().getInstance().orElseThrow();
-        }
-        return groupsAddon;
     }
 }

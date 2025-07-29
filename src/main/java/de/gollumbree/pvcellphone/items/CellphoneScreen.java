@@ -173,8 +173,8 @@ public class CellphoneScreen extends Screen {
     @SuppressWarnings("null")
     private String playerAutoComplete(String text) {
         assert minecraft != null;
-        assert minecraft.level != null;
-        return minecraft.level.players().stream().map(player -> player.getName().getString())
+        return minecraft.getConnection().getOnlinePlayers().stream()
+                .map(player -> player.getProfile().getName())
                 .filter(name -> !name.equals(cellphoneItem.player.getName().getString()))
                 .filter(name -> name.toLowerCase().startsWith(text.toLowerCase()))
                 .map(name -> name.substring(text.length())).findFirst().orElse("");

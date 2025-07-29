@@ -23,7 +23,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class CellphoneItem extends Item {
-    // TODO: reset incomingCall state when the player leaves or joins a server +
     // maybe after a Timeout
     private boolean incomingCall = false;
     Player player; // Placeholder for the player who is calling

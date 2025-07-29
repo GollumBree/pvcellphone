@@ -6,14 +6,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import de.gollumbree.pvcellphone.Main;
-// import net.minecraft.commands.CommandSourceStack;
+import de.gollumbree.pvcellphone.compat.pvgroupsCompat;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-// import net.neoforged.api.distmarker.OnlyIn;
-// import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import su.plo.slib.api.entity.player.McGameProfile;
@@ -38,7 +35,7 @@ public class ServerCallHandler {
             // Target player is not online, cannot send packet
             return;
         }
-        GroupsManager groupManager = Main.pvgroupsAddon().getGroupManager();
+        GroupsManager groupManager = pvgroupsCompat.pvgroupsAddon().getGroupManager();
         Group group = groupManager.getGroupByPlayer().get(sender.getUUID());
         if (group == null) {
             // If no group name is provided, create a new group with a random UUID
@@ -53,7 +50,7 @@ public class ServerCallHandler {
                     (McGameProfile) null);
             groupManager.getGroups().put(groupUuid, group);
 
-            VoicePlayer voicePlayer = Main.pVoiceServer().getPlayerManager().getPlayerById(sender.getUUID())
+            VoicePlayer voicePlayer = pvgroupsCompat.pVoiceServer().getPlayerManager().getPlayerById(sender.getUUID())
                     .orElse(null);
             if (voicePlayer == null) {
                 System.err.println("Player " + sender.getName().getString() + " not found in Voice Server!");

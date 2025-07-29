@@ -1,6 +1,6 @@
 package de.gollumbree.pvcellphone.network;
 
-import de.gollumbree.pvcellphone.Main;
+import de.gollumbree.pvcellphone.compat.pvgroupsCompat;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import su.plo.voice.api.server.player.VoicePlayer;
 import su.plo.voice.groups.GroupsAddon;
@@ -11,12 +11,12 @@ import java.util.UUID;
 
 public class ServerJoinHandler {
     public static void handleDataOnMain(final JoinData data, final IPayloadContext context) {
-        GroupsAddon groupsAddon = Main.pvgroupsAddon();
-        ModVoiceServer voiceServer = Main.pVoiceServer();
+        GroupsAddon groupsAddon = pvgroupsCompat.pvgroupsAddon();
+        ModVoiceServer voiceServer = pvgroupsCompat.pVoiceServer();
         VoicePlayer player = voiceServer.getPlayerManager().getPlayerById(UUID.fromString(data.playerId()))
                 .orElseThrow();
         Group group = groupsAddon.getGroupManager().getGroups().get(UUID.fromString(data.groupId()));
-        Main.pvgroupsAddon().getGroupManager().join(
+        pvgroupsCompat.pvgroupsAddon().getGroupManager().join(
                 player,
                 group);
     }
